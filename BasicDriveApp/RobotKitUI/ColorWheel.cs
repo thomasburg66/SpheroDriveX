@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Input;
 using Windows.UI;
@@ -14,6 +15,9 @@ namespace BasicDriveApp
 {
     class ColorWheel
     {
+        //! @slider for intensity of color
+        byte m_intensity;
+
         //! @brief	control that represents the puck
         private FrameworkElement m_puckControl;
 
@@ -37,9 +41,12 @@ namespace BasicDriveApp
          * @param	puck the puck to control with the joystick
          * @param	sphero the sphero to control
          */
-        public ColorWheel(FrameworkElement puck, RobotKit.Sphero sphero, RobotKit.SpheroSim simul) {
+        public ColorWheel(
+            FrameworkElement puck, RobotKit.Sphero sphero, 
+            RobotKit.SpheroSim simul, Slider slider) {
             m_sphero = sphero;
             m_simul = simul;
+            m_intensity = 255;
 
             m_puckControl = puck;
             m_puckControl.PointerPressed += PointerPressed;
@@ -52,6 +59,10 @@ namespace BasicDriveApp
             m_puckControl.RenderTransform = m_translateTransform;
 
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+        }
+
+        public void SetIntensity(int a) {
+            m_intensity=(byte)a;
         }
 
         //! @brief  handle the user starting to drive
@@ -112,9 +123,9 @@ namespace BasicDriveApp
         /*!
          * @brief	sends an rgb command to the sphero given the current translation
          */
-        private void SendRgbCommand() {
+        public void SendRgbCommand() {
             FrameworkElement parent = m_puckControl.Parent as FrameworkElement;
-            if (parent == null || m_sphero == null) {
+            if (parent == null || ( m_sphero == null && m_simul == null)) {
                 return;
             }
 
@@ -142,10 +153,10 @@ namespace BasicDriveApp
             // Send RGB command and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
-                if (m_simul!=null)
+                if (m_sphero!=null)
                     m_sphero.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
-                else
-                    m_simul.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
+                if (m_simul!=null)
+                    m_simul.SetRGBLED(m_intensity,RgbColor.R, RgbColor.G, RgbColor.B);
 
                 m_lastCommandSentTimeMs = milliseconds;
             }

@@ -64,19 +64,20 @@ namespace BasicDriveApp
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             base.OnNavigatedTo(e);
+            StartUpRobot();
 
+        }
+
+        private void StartUpRobot()
+        {
             // use simulator?
+            m_simul = new SpheroSim(ellColor);
 
             if (chkSimul.IsChecked == true)
             {
                 m_robot = null;
-                m_simul = new SpheroSim();
                 SetupControls();
                 return;
-            }
-            else
-            {
-                m_simul = null;
             }
 
             SetupRobotConnection();
@@ -136,11 +137,12 @@ namespace BasicDriveApp
                 provider.NoRobotsEvent -= OnNoRobotsEvent;
                 provider.ConnectedRobotEvent -= OnRobotConnected;
             }
+            m_robot = null;
         }
 
         //! @brief  configures the various sphero controls
         private void SetupControls() {
-            m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul);
+            m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul, slColorIntensity);
             m_joystick = new Joystick(Puck, m_robot);
 
             m_calibrateElement = new CalibrateElement(
@@ -152,7 +154,15 @@ namespace BasicDriveApp
                 CalibrationFingerPoint,
                 m_robot);
 
-            m_colorbuttons = new ColorButtons(m_robot,m_simul);
+            m_colorbuttons = new ColorButtons(m_robot,m_simul, bnStartColor1,bnStopColorAnim);
+
+            String step_string= slStep.Value.ToString();
+            String delay_string=slDelay.Value.ToString();
+            String intensity_string=slColorIntensity.Value.ToString();
+            m_colorwheel.SetIntensity(Int32.Parse(intensity_string));
+            m_colorbuttons.SetIntensity(Int32.Parse(intensity_string));
+            m_colorbuttons.SetDelay(Int32.Parse(step_string));
+
         }
 
         //! @brief  shuts down the various sphero controls
@@ -234,7 +244,7 @@ namespace BasicDriveApp
 
         private void bnStartColor1_Click(object sender, RoutedEventArgs e)
         {
-            m_colorbuttons.Anim1Clicked();
+            m_colorbuttons.StartClicked();
         }
 
 
@@ -248,9 +258,56 @@ namespace BasicDriveApp
             bnStartColor1.IsEnabled = is_enabled;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void bnStopColorAnim_Click(object sender, RoutedEventArgs e)
         {
+            m_colorbuttons.StopClicked();
 
+        }
+
+        private void slColorIntensity_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            String slider_string = e.NewValue.ToString();
+            int slider_int = Int32.Parse(slider_string);
+            if (m_colorwheel != null)
+            {
+                m_colorwheel.SetIntensity(slider_int);
+                m_colorbuttons.SetIntensity(slider_int);
+                m_colorwheel.SendRgbCommand();
+
+            }
+        }
+
+        private void slDelay_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            String delay_string = e.NewValue.ToString();
+            int delay_int = Int32.Parse(delay_string);
+            if (m_colorbuttons!=null)
+                m_colorbuttons.SetDelay(delay_int);
+
+        }
+
+        private void slStep_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            String step_string = e.NewValue.ToString();
+            int step_int = Int32.Parse(step_string);
+            if (m_colorbuttons != null)
+                m_colorbuttons.SetStep(step_int);
+
+        }
+
+        private void chkSimul_Unchecked(object sender, RoutedEventArgs e)
+        {
+            StartUpRobot();
+        }
+
+        private void chkSimul_Checked(object sender, RoutedEventArgs e)
+        {
+            if (m_robot != null)
+            {
+                m_robot = null;
+                ShutdownRobotConnection();
+                SetupControls();
+            }
         }
 
     }

@@ -4,8 +4,20 @@
 
 using RobotKit.Internal;
 using RobotKit;
-using System;
 using System.Diagnostics;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using Windows.Foundation;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Input;
+using Windows.UI;
 
 
 /*
@@ -49,11 +61,18 @@ namespace RobotKit
 {
     public class SpheroSim
     {
+        private Ellipse m_ellipse;
+
         public void Roll(int heading, float speed) { }
         public void SetBackLED(float intensity) { }
         public void SetHeading(int heading) { }
-        public void SetRGBLED(int red, int green, int blue) { }
-        public SpheroSim() { 
+        public void SetRGBLED(int a, int red, int green, int blue) {
+            Color c = Color.FromArgb((byte) a, (byte) red, (byte)green, (byte)blue);
+            Brush brush = new SolidColorBrush(c);
+            m_ellipse.Fill = brush;
+        }
+        public SpheroSim(Ellipse e) {
+            m_ellipse = e;
         }
     }
 }
