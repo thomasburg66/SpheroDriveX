@@ -116,6 +116,7 @@
     <Compile Include="RobotKitUI\ColorButtons.cs" />
     <Compile Include="RobotKitUI\ColorWheel.cs" />
     <Compile Include="RobotKitUI\Joystick.cs" />
+    <Compile Include="RobotKitUI\SpheroSimul.cs" />
     <Compile Include="RobotKitUI\TB_Comments.cs" />
   </ItemGroup>
   <ItemGroup>
