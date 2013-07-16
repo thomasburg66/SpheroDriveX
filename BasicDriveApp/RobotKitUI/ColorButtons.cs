@@ -20,6 +20,9 @@ namespace BasicDriveApp
         //! @brief	sphero to control
         private RobotKit.Sphero m_sphero;
 
+        //! @brief	simulator to control
+        private RobotKit.SpheroSim m_simul;
+
         //! @brief  the last time a command was sent in milliseconds
         private long m_lastCommandSentTimeMs;
 
@@ -28,9 +31,10 @@ namespace BasicDriveApp
          * @param	puck the puck to control with the joystick
          * @param	sphero the sphero to control
          */
-        public ColorButtons(RobotKit.Sphero sphero)
+        public ColorButtons(RobotKit.Sphero sphero, RobotKit.SpheroSim simul)
         {
             m_sphero = sphero;
+            m_simul = simul;
 
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
@@ -46,7 +50,10 @@ namespace BasicDriveApp
                 green = Math.Abs((i * 2) % 512 - 256);
                 blue = Math.Abs((i * 3) % 512 - 256);
 
-                m_sphero.SetRGBLED(red,green,blue);
+                if (m_sphero != null)
+                    m_sphero.SetRGBLED(red, green, blue);
+                else
+                    m_simul.SetRGBLED(red,green,blue);
 
                 // delay 10 ms
                 await Task.Delay(10);

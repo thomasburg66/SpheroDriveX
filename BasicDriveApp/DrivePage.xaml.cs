@@ -48,6 +48,7 @@ namespace BasicDriveApp
 
         // TB
         private ColorButtons m_colorbuttons;
+        SpheroSim m_simul;
 
         //! @brief  the calibration wheel to calibrate m_robot
         private CalibrateElement m_calibrateElement;
@@ -63,6 +64,20 @@ namespace BasicDriveApp
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             base.OnNavigatedTo(e);
+
+            // use simulator?
+
+            if (chkSimul.IsChecked == true)
+            {
+                m_robot = null;
+                m_simul = new SpheroSim();
+                SetupControls();
+                return;
+            }
+            else
+            {
+                m_simul = null;
+            }
 
             SetupRobotConnection();
             Application app = Application.Current;
@@ -125,7 +140,7 @@ namespace BasicDriveApp
 
         //! @brief  configures the various sphero controls
         private void SetupControls() {
-            m_colorwheel = new ColorWheel(ColorPuck, m_robot);
+            m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul);
             m_joystick = new Joystick(Puck, m_robot);
 
             m_calibrateElement = new CalibrateElement(
@@ -137,7 +152,7 @@ namespace BasicDriveApp
                 CalibrationFingerPoint,
                 m_robot);
 
-            m_colorbuttons = new ColorButtons(m_robot);
+            m_colorbuttons = new ColorButtons(m_robot,m_simul);
         }
 
         //! @brief  shuts down the various sphero controls
@@ -231,6 +246,11 @@ namespace BasicDriveApp
         public void SetColorAnim1StartEnabled(bool is_enabled)
         {
             bnStartColor1.IsEnabled = is_enabled;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }

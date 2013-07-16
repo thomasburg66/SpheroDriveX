@@ -23,6 +23,9 @@ namespace BasicDriveApp
         //! @brief	sphero to control
         private RobotKit.Sphero m_sphero;
 
+        //! @brief	simulator to control
+        private RobotKit.SpheroSim m_simul;
+
         //! @brief  the initial point that we are referencing
         private Point m_initialPoint;
 
@@ -34,8 +37,9 @@ namespace BasicDriveApp
          * @param	puck the puck to control with the joystick
          * @param	sphero the sphero to control
          */
-        public ColorWheel(FrameworkElement puck, RobotKit.Sphero sphero) {
+        public ColorWheel(FrameworkElement puck, RobotKit.Sphero sphero, RobotKit.SpheroSim simul) {
             m_sphero = sphero;
+            m_simul = simul;
 
             m_puckControl = puck;
             m_puckControl.PointerPressed += PointerPressed;
@@ -138,7 +142,11 @@ namespace BasicDriveApp
             // Send RGB command and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
-                m_sphero.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
+                if (m_simul!=null)
+                    m_sphero.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
+                else
+                    m_simul.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
+
                 m_lastCommandSentTimeMs = milliseconds;
             }
         }
