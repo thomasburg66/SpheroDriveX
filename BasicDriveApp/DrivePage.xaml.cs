@@ -173,6 +173,7 @@ namespace BasicDriveApp
                     CalibrateRingMiddle,
                     CalibrateRingInner,
                     CalibrationFingerPoint,
+                    gridCalibration,
                     m_robot);
             else
                 m_calibrateElement.update(m_robot);

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
@@ -62,6 +63,7 @@ namespace RobotKit
     public class SpheroSim
     {
         private Ellipse m_ellipse;
+        //  private Canvas m_canvas;
 
         public void Roll(int heading, float speed) { }
         public void SetBackLED(float intensity) { }
