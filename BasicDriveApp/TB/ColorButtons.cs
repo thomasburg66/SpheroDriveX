@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI;
+using TBTools;
 
 using BasicDriveApp;
 
@@ -83,17 +84,17 @@ namespace BasicDriveApp
             m_animation_active = true;
 
             // go through a few simple color changes
-            int red, green, blue;
+            byte red, green, blue;
 
             // c=0: green, etc.
-            int brightness;
+            byte brightness;
             while (m_animation_active==true)
             {
                 for (int c = 0; c < 3; c++)
                 {
                     for (int i = 0; i < 512; i+=m_step)
                     {
-                        brightness=256-Math.Abs(i-256);
+                        brightness=(byte) (256- Math.Abs(i-256));
                         switch (c)
                         {
                             case 0:
@@ -106,22 +107,15 @@ namespace BasicDriveApp
                                 red = 0; green = 0; blue = brightness;
                                 break;
                         }
+
+                        Color original=Color.FromArgb(255,red,green,blue);
+                        Color dimmed=TBTools.TBTools.DimmedColor(original,m_intensity);
                         
                         if (m_simul!=null)
-                            m_simul.SetRGBLED(m_intensity, red, green, blue);
-                        if (m_sphero != null)
-                        {
-                            // need to apply intensity differently
-                            double red1, green1, blue1;
-                            red1=red * m_intensity / 255.0;
-                            green1=green * m_intensity / 255.0;
-                            blue1=blue * m_intensity / 255.0;
-                            red= (int) Math.Round(red1);
-                            green = (int) Math.Round(green1);
-                            blue = (int) Math.Round(blue1);
+                            m_simul.SetRGBLED(dimmed.R,dimmed.G,dimmed.B);
 
-                            m_sphero.SetRGBLED(red, green, blue);
-                        }
+                        if (m_sphero != null)
+                            m_sphero.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
 
                         // delay a bit; at minimum 10 ms
                         await Task.Delay(m_delay+10);

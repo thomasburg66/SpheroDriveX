@@ -66,8 +66,8 @@ namespace RobotKit
         public void Roll(int heading, float speed) { }
         public void SetBackLED(float intensity) { }
         public void SetHeading(int heading) { }
-        public void SetRGBLED(int a, int red, int green, int blue) {
-            Color c = Color.FromArgb((byte) a, (byte) red, (byte)green, (byte)blue);
+        public void SetRGBLED(int red, int green, int blue) {
+            Color c = Color.FromArgb(255, (byte) red, (byte)green, (byte)blue);
             Brush brush = new SolidColorBrush(c);
             m_ellipse.Fill = brush;
         }

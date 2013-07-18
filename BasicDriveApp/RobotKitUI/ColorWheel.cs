@@ -61,14 +61,16 @@ namespace BasicDriveApp
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public void update(RobotKit.Sphero sphero,
+        public void UpdateSphero(RobotKit.Sphero sphero,
             RobotKit.SpheroSim simul)
         {
             m_sphero = sphero;
             m_simul = simul;
         }
+
         public void SetIntensity(int a) {
             m_intensity=(byte)a;
+            SendRgbCommand();
         }
 
         //! @brief  handle the user starting to drive
@@ -154,16 +156,20 @@ namespace BasicDriveApp
             double degrees = rad * 180.0 / Math.PI;
             int degreesCapped = (((int)degrees) + 360) % 360;
 
-            Color RgbColor = ColorFromHSV(degreesCapped, speed, m_intensity / 255);
+            Color RgbColor = ColorFromHSV(degreesCapped, speed, 1.0);
+
+            // dim color according to intensity setting
+            Color dimmed = TBTools.TBTools.DimmedColor(RgbColor, m_intensity);
+
+            // set simul color, no timing constraints
+            if (m_simul != null)
+                m_simul.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
 
             // Send RGB command and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
-                if (m_sphero!=null)
-                    m_sphero.SetRGBLED(RgbColor.R, RgbColor.G, RgbColor.B);
-                if (m_simul!=null)
-                    m_simul.SetRGBLED(m_intensity,RgbColor.R, RgbColor.G, RgbColor.B);
-
+                if (m_sphero != null)
+                    m_sphero.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
                 m_lastCommandSentTimeMs = milliseconds;
             }
         }

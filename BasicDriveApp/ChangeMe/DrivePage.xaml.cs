@@ -153,7 +153,7 @@ namespace BasicDriveApp
             if (m_colorwheel == null)
                 m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul, slColorIntensity);
             else
-                m_colorwheel.update(m_robot, m_simul);
+                m_colorwheel.UpdateSphero(m_robot, m_simul);
 
             if (m_joystick == null)
                 m_joystick = new Joystick(Puck, m_robot);
@@ -291,7 +291,6 @@ namespace BasicDriveApp
             {
                 m_colorwheel.SetIntensity(slider_int);
                 m_colorbuttons.SetIntensity(slider_int);
-                m_colorwheel.SendRgbCommand();
 
             }
         }
