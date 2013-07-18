@@ -50,6 +50,11 @@ namespace BasicDriveApp
             m_puckControl.RenderTransform = m_translateTransform;
         }
 
+        public void update(RobotKit.Sphero sphero)
+        {
+            m_sphero = sphero;
+        }
+
         //! @brief  handle the user starting to drive
         private void PointerPressed(object sender, PointerRoutedEventArgs args) {
             Windows.UI.Input.PointerPoint pointer = args.GetCurrentPoint(null);

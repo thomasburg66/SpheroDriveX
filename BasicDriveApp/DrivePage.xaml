@@ -57,12 +57,13 @@
         <Button x:Name="bnStartColor1" Content="Start Color Anim 1" HorizontalAlignment="Left" Height="43" Margin="1,315,0,0" VerticalAlignment="Top" Width="256" Click="bnStartColor1_Click"/>
         <Button x:Name="bnStopColorAnim" Content="Stop Color Anim" HorizontalAlignment="Left" Height="43" Margin="-3,357,0,0" VerticalAlignment="Top" Width="256" IsEnabled="False" Click="bnStopColorAnim_Click"/>
         <CheckBox x:Name="chkSimul" Content="Use Only Simulator" HorizontalAlignment="Left" Height="50" Margin="18,104,0,0" VerticalAlignment="Top" Width="221" Checked="chkSimul_Checked" IsChecked="True" Unchecked="chkSimul_Unchecked"/>
-        <Ellipse x:Name="ellColor" Fill="#FFB48B79" HorizontalAlignment="Left" Height="175" Margin="623,170,0,0" Stroke="Black" VerticalAlignment="Top" Width="174"/>
+        <Ellipse x:Name="ellColor" Fill="#FFB48B79" HorizontalAlignment="Left" Height="105" Margin="543,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
         <Slider x:Name="slColorIntensity" HorizontalAlignment="Left" Height="256" Margin="244,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slColorIntensity_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="255" Orientation="Vertical" Value="125"/>
         <Slider x:Name="slDelay" HorizontalAlignment="Left" Height="24" Margin="109,289,0,0" VerticalAlignment="Top" Width="130" ValueChanged="slDelay_ValueChanged" Maximum="1000" Value="24"/>
         <Slider x:Name="slStep" HorizontalAlignment="Left" Height="24" Margin="109,262,0,0" VerticalAlignment="Top" Width="130" ValueChanged="slStep_ValueChanged" Maximum="50" Value="15" Minimum="1"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="4,297,0,0" TextWrapping="Wrap" Text="Delay" VerticalAlignment="Top" Width="83" FontSize="18"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="4,276,0,0" TextWrapping="Wrap" Text="Step" VerticalAlignment="Top" Width="83" FontSize="18"/>
+        <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="185" Margin="678,12,0,0" TextWrapping="Wrap" Text="Status Output:&#xD;&#xA;" VerticalAlignment="Top" Width="442" IsReadOnly="True" FontSize="16" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 </Page>

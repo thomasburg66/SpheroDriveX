@@ -57,6 +57,11 @@ namespace BasicDriveApp
             this.InitializeComponent();
         }
 
+        private void WriteDebugOutput(String text) {
+            txtOutput.Text=txtOutput.Text + "\n" + text;
+            Debug.WriteLine(text);
+        }
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -142,17 +147,30 @@ namespace BasicDriveApp
 
         //! @brief  configures the various sphero controls
         private void SetupControls() {
-            m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul, slColorIntensity);
-            m_joystick = new Joystick(Puck, m_robot);
+            WriteDebugOutput(
+                string.Format("Creating new Controls, m_robot={0}, m_simul={1}",m_robot,m_simul));
 
-            m_calibrateElement = new CalibrateElement(
-                CalibrateRotationRoot,
-                CalibrateTarget,
-                CalibrateRingOuter,
-                CalibrateRingMiddle,
-                CalibrateRingInner,
-                CalibrationFingerPoint,
-                m_robot);
+            if (m_colorwheel == null)
+                m_colorwheel = new ColorWheel(ColorPuck, m_robot, m_simul, slColorIntensity);
+            else
+                m_colorwheel.update(m_robot, m_simul);
+
+            if (m_joystick == null)
+                m_joystick = new Joystick(Puck, m_robot);
+            else
+                m_joystick.update(m_robot);
+
+            if (m_calibrateElement == null)
+                m_calibrateElement = new CalibrateElement(
+                    CalibrateRotationRoot,
+                    CalibrateTarget,
+                    CalibrateRingOuter,
+                    CalibrateRingMiddle,
+                    CalibrateRingInner,
+                    CalibrationFingerPoint,
+                    m_robot);
+            else
+                m_calibrateElement.update(m_robot);
 
             m_colorbuttons = new ColorButtons(m_robot,m_simul, bnStartColor1,bnStopColorAnim);
 
@@ -175,9 +193,10 @@ namespace BasicDriveApp
 
         //! @brief  when a robot is discovered, connect!
         private void OnRobotDiscovered(object sender, Robot robot) {
-            Debug.WriteLine(string.Format("Discovered \"{0}\"", robot.BluetoothName));
+            WriteDebugOutput(string.Format("Discovered \"{0}\"", robot.BluetoothName));
 
             if (m_robot == null) {
+                WriteDebugOutput("Creating new Robot");
                 RobotProvider provider = RobotProvider.GetSharedProvider();
                 provider.ConnectRobot(robot);
                 ConnectionToggle.OnContent = "Connecting...";
@@ -197,7 +216,7 @@ namespace BasicDriveApp
 
         //! @brief  when a robot is connected, get ready to drive!
         private void OnRobotConnected(object sender, Robot robot) {
-            Debug.WriteLine(string.Format("Connected to {0}", robot));
+            WriteDebugOutput(string.Format("Connected to {0}", robot));
             ConnectionToggle.IsOn = true;
             ConnectionToggle.OnContent = "Connected";
 
@@ -215,7 +234,7 @@ namespace BasicDriveApp
 
 
         private void ConnectionToggle_Toggled(object sender, RoutedEventArgs e) {
-            Debug.WriteLine("Connection Toggled : " + ConnectionToggle.IsOn);
+            WriteDebugOutput("Connection Toggled : " + ConnectionToggle.IsOn);
             ConnectionToggle.OnContent = "Connecting...";
             if (ConnectionToggle.IsOn) {
                 if (m_robot == null) {
@@ -239,7 +258,7 @@ namespace BasicDriveApp
         }
 
         private void OnCollisionDetected(object sender, CollisionData data) {
-            Debug.WriteLine("Wall collision was detected");
+            WriteDebugOutput("Wall collision was detected");
         }
 
         private void bnStartColor1_Click(object sender, RoutedEventArgs e)

@@ -80,6 +80,11 @@ namespace BasicDriveApp
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
+        public void update(RobotKit.Robot sphero)
+        {
+            m_sphero = (RobotKit.Sphero)sphero;
+        }
+
         //! @brief  sets up the rotation transform
         private void SetupRotation() {
             m_rotation = new RotateTransform();
@@ -115,7 +120,10 @@ namespace BasicDriveApp
             // preview the calibration and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
-                m_sphero.Roll(angleDegrees, 0);
+                if (m_sphero != null)
+                {
+                    m_sphero.Roll(angleDegrees, 0);
+                }
                 m_lastCommandSentTimeMs = milliseconds;
             }
         }

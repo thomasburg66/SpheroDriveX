@@ -44,10 +44,10 @@ namespace BasicDriveApp
         public ColorWheel(
             FrameworkElement puck, RobotKit.Sphero sphero, 
             RobotKit.SpheroSim simul, Slider slider) {
+
             m_sphero = sphero;
             m_simul = simul;
-            m_intensity = 255;
-
+ 
             m_puckControl = puck;
             m_puckControl.PointerPressed += PointerPressed;
             m_puckControl.PointerMoved += PointerMoved;
@@ -61,6 +61,12 @@ namespace BasicDriveApp
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
+        public void update(RobotKit.Sphero sphero,
+            RobotKit.SpheroSim simul)
+        {
+            m_sphero = sphero;
+            m_simul = simul;
+        }
         public void SetIntensity(int a) {
             m_intensity=(byte)a;
         }
@@ -148,7 +154,7 @@ namespace BasicDriveApp
             double degrees = rad * 180.0 / Math.PI;
             int degreesCapped = (((int)degrees) + 360) % 360;
 
-            Color RgbColor = ColorFromHSV(degreesCapped, speed, 1.0);
+            Color RgbColor = ColorFromHSV(degreesCapped, speed, m_intensity / 255);
 
             // Send RGB command and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
