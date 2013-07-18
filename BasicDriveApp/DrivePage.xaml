@@ -13,6 +13,8 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" FlyoutBase.AttachedFlyout="{StaticResource FlyoutBase1}">
 
+        <Rectangle HorizontalAlignment="Left" Height="440" Stroke="#FF001EFF" VerticalAlignment="Top" Width="480" StrokeThickness="5" Margin="395,0,0,0"/>
+
         <Rectangle HorizontalAlignment="Left" Height="325" Stroke="#FF001EFF" VerticalAlignment="Top" Width="400" StrokeThickness="5" Margin="0,115,0,0"/>
 
         <Rectangle HorizontalAlignment="Left" Height="120" Stroke="#FF001EFF" VerticalAlignment="Top" Width="400" StrokeThickness="5"/>
@@ -58,14 +60,16 @@
         <Button x:Name="bnStartColor1" Content="Start" HorizontalAlignment="Left" Height="50" Margin="10,160,0,0" VerticalAlignment="Top" Width="180" Click="bnStartColor1_Click"/>
         <Button x:Name="bnStopColorAnim" Content="Stop" HorizontalAlignment="Left" Height="50" Margin="202,160,0,0" VerticalAlignment="Top" Width="180" IsEnabled="False" Click="bnStopColorAnim_Click"/>
         <CheckBox x:Name="chkSimul" Content="Use Only Simulator" HorizontalAlignment="Left" Height="50" Margin="10,45,0,0" VerticalAlignment="Top" Width="221" Checked="chkSimul_Checked" IsChecked="True" Unchecked="chkSimul_Unchecked" FontSize="16"/>
-        <Ellipse x:Name="ellColor" Fill="#FFB48B79" HorizontalAlignment="Left" Height="105" Margin="543,12,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
+        <Ellipse x:Name="ellColor" Fill="#FFB48B79" HorizontalAlignment="Left" Height="105" Margin="405,300,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
         <Slider x:Name="slColorIntensity" HorizontalAlignment="Left" Height="256" Margin="244,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slColorIntensity_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="255" Orientation="Vertical" Value="125"/>
         <Slider x:Name="slDelay" HorizontalAlignment="Left" Margin="79,247,0,0" VerticalAlignment="Top" ValueChanged="slDelay_ValueChanged" Maximum="1000" Value="24" Width="300" Height="30"/>
         <Slider x:Name="slStep" HorizontalAlignment="Left" Height="30" Margin="80,210,0,0" VerticalAlignment="Top" Width="300" ValueChanged="slStep_ValueChanged" Maximum="50" Value="15" Minimum="1"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,260,0,0" TextWrapping="Wrap" Text="Delay" VerticalAlignment="Top" Width="83" FontSize="18"/>
-        <TextBlock HorizontalAlignment="Left" Height="21" Margin="13,224,0,0" TextWrapping="Wrap" Text="Step" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="185" Margin="678,12,0,0" TextWrapping="Wrap" Text="Status Output:&#xA;" VerticalAlignment="Top" Width="442" IsReadOnly="True" FontSize="16" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,224,0,0" TextWrapping="Wrap" Text="Step" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
+        <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="250" Margin="400,40,0,0" TextWrapping="Wrap" Text="Status Output:&#xA;" VerticalAlignment="Top" Width="470" IsReadOnly="True" FontSize="16" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,600" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="Color Animation"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="435,410,0,0" TextWrapping="Wrap" Text="Color" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
+        <TextBlock HorizontalAlignment="Left" Margin="530,0,0,724" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="Simulator/Debugger"/>
 
     </Grid>
 </Page>
