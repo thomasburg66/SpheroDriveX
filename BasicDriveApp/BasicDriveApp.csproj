@@ -121,27 +121,27 @@
     <Compile Include="TB\TB_Comments.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Don%27t Change Me\Package.appxmanifest">
+    <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="BasicDriveApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Don%27t Change Me\Assets\BadgeLogo.scale-180.png" />
-    <Content Include="Don%27t Change Me\Assets\CalibrateWheel\btn_calibrate_up.tif" />
-    <Content Include="Don%27t Change Me\Assets\CalibrateWheel\gfx_calibrate-inner.png" />
-    <Content Include="Don%27t Change Me\Assets\CalibrateWheel\gfx_calibrate-outer.png" />
-    <Content Include="Don%27t Change Me\Assets\CalibrateWheel\gfx_calibrate-touch.png" />
-    <Content Include="Don%27t Change Me\Assets\ColorWheel\colorwheel.png" />
-    <Content Include="Don%27t Change Me\Assets\DriveWheel\gfx_driveorb.tif" />
-    <Content Include="Don%27t Change Me\Assets\DriveWheel\gfx_joystick.png" />
-    <Content Include="Don%27t Change Me\Assets\Logo.png" />
-    <Content Include="Don%27t Change Me\Assets\SmallLogo.png" />
-    <Content Include="Don%27t Change Me\Assets\SplashScreen.png" />
-    <Content Include="Don%27t Change Me\Assets\Square310x310Logo.scale-100.png" />
-    <Content Include="Don%27t Change Me\Assets\Square70x70Logo.scale-100.png" />
-    <Content Include="Don%27t Change Me\Assets\StoreLogo.png" />
-    <Content Include="Don%27t Change Me\Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-180.png" />
+    <Content Include="Assets\CalibrateWheel\btn_calibrate_up.tif" />
+    <Content Include="Assets\CalibrateWheel\gfx_calibrate-inner.png" />
+    <Content Include="Assets\CalibrateWheel\gfx_calibrate-outer.png" />
+    <Content Include="Assets\CalibrateWheel\gfx_calibrate-touch.png" />
+    <Content Include="Assets\ColorWheel\colorwheel.png" />
+    <Content Include="Assets\DriveWheel\gfx_driveorb.tif" />
+    <Content Include="Assets\DriveWheel\gfx_joystick.png" />
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\SmallLogo.png" />
+    <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Square70x70Logo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

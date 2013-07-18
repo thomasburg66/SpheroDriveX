@@ -83,6 +83,7 @@ namespace BasicDriveApp
         public void update(RobotKit.Robot sphero)
         {
             m_sphero = (RobotKit.Sphero)sphero;
+            SetupRotation();
         }
 
         //! @brief  sets up the rotation transform
