@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -70,6 +71,10 @@ namespace BasicDriveApp
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             base.OnNavigatedTo(e);
             StartUpRobot();
+
+            // added by TB
+            String version = Application.Current.ToString();
+            txtAppName.Text = "SpheroDriveX V " + version;
 
         }
 

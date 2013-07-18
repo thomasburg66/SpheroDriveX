@@ -38,8 +38,9 @@
  *   
  * - add new displays:
  *   - simulator: 
+ *     - display commands sent
  *   - accelerator/gyrometer: display in graphics, not just numbers
- *   
+ *   - programming windows?
  * bugs:
  * 
  * 
