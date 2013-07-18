@@ -34,7 +34,7 @@ namespace BasicDriveApp
         private FrameworkElement m_fingerPoint;
 
         // grid
-        private FrameworkElement m_myGrid;
+        private FrameworkElement m_myRect;
 
         //! @brief  a rotation transform applied to m_calibrateRotationRoot
         private RotateTransform m_rotation;
@@ -61,7 +61,7 @@ namespace BasicDriveApp
             FrameworkElement ringMiddle,
             FrameworkElement ringInner,
             FrameworkElement fingerPoint,
-            FrameworkElement myGrid,
+            FrameworkElement myRect,
             RobotKit.Robot sphero) {
             m_sphero = (RobotKit.Sphero)sphero;
             m_calibrateRotationRoot = rotationElement;
@@ -72,7 +72,7 @@ namespace BasicDriveApp
             m_calibrateElement.PointerReleased += OnPointerReleased;
             m_calibrateElement.PointerCaptureLost += OnPointerReleased;
             m_calibrateElement.PointerCanceled += OnPointerReleased;
-            m_myGrid = myGrid;
+            m_myRect = myRect;
 
             m_ringOuter = ringOuter;
             m_ringMiddle = ringMiddle;
@@ -94,8 +94,8 @@ namespace BasicDriveApp
         private void SetupRotation() {
             m_rotation = new RotateTransform();
             m_calibrateRotationRoot.RenderTransform = m_rotation;
-            m_rotation.CenterX = m_calibrateRotationRoot.Width / 2;
-            m_rotation.CenterY = m_calibrateRotationRoot.Height / 2;
+            m_rotation.CenterX = m_myRect.Width / 2;
+            m_rotation.CenterY = m_myRect.Height / 2;
         }
 
         /*!

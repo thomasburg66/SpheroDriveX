@@ -19,5 +19,18 @@ namespace TBTools
             return retval;
         }
 
+        static public int AccToNum(float a)
+        {
+            double result = Math.Round(a * 5);
+            return (int)result;
+        }
+
+        static public int GyroToNum(float g)
+        {
+            double result = Math.Round(Math.Log10(Math.Abs(g)));
+            if (g > 0) result = 0 - result;
+            return (int)result;
+        }
+
     }
 }

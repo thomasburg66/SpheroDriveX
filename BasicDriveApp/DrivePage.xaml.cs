@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Reflection;
 
 using Windows.ApplicationModel;
 using Windows.Foundation;
@@ -16,6 +17,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -73,8 +76,8 @@ namespace BasicDriveApp
             StartUpRobot();
 
             // added by TB
-            String version = Application.Current.ToString();
-            txtAppName.Text = "SpheroDriveX V " + version;
+            String version = "Lupo 1.2.0.1";
+            txtAppName.Text = "SpheroDriveX " + version;
 
         }
 
@@ -173,7 +176,7 @@ namespace BasicDriveApp
                     CalibrateRingMiddle,
                     CalibrateRingInner,
                     CalibrationFingerPoint,
-                    gridCalibration,
+                    rectCalibration,
                     m_robot);
             else
                 m_calibrateElement.update(m_robot);
@@ -255,12 +258,22 @@ namespace BasicDriveApp
             AccelerometerX.Text = "" + reading.X;
             AccelerometerY.Text = "" + reading.Y;
             AccelerometerZ.Text = "" + reading.Z;
+
+            slAccX.Value = TBTools.TBTools.AccToNum(reading.X);
+            slAccY.Value = TBTools.TBTools.AccToNum(reading.Y);
+            slAccZ.Value = TBTools.TBTools.AccToNum(reading.Z);
+
+
         }
 
         private void OnGyrometerUpdated(object sender, GyrometerReading reading) {
             GyroscopeX.Text = "" + reading.X;
             GyroscopeY.Text = "" + reading.Y;
             GyroscopeZ.Text = "" + reading.Z;
+
+            slGyroX.Value = TBTools.TBTools.GyroToNum(reading.X);
+            slGyroY.Value = TBTools.TBTools.GyroToNum(reading.Y);
+            slGyroZ.Value = TBTools.TBTools.GyroToNum(reading.Z);
         }
 
         private void OnCollisionDetected(object sender, CollisionData data) {

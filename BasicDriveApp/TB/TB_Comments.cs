@@ -15,6 +15,29 @@
  * todo/Change Log
  * 
 
+ * todo:
+ * - increase size of steering wheel?
+ * - ### add speed control ###
+ * - display commands sent in simulator canva
+ * - programming windows?
+ * 
+ * bugs:
+ *
+ * minor improvements:
+ * - accelerator display 'wiggles' too much; z-axis needs fix?
+ * 
+ * Lupo 1.2.0.1
+ * ============
+ * - cleaned up screen by rearranging things, decreasing size of calibration wheel
+ * - added display for readings of gyrometer, accelerator
+ * - added (emypty) display for steering commands executed
+ * 
+ * 1.0.1.1
+ * =======
+ * - basic stuff works:
+ *   - color animation buttons
+ *   - simulation of color display
+ * 
  * 0.9a:
  * ====
  * Todo:
@@ -23,26 +46,6 @@
  * --> done :-)
  * --> 1.0.1.1
  * 
- * 1.0.1.1
- * =======
- * todo:
- * - rearrange screen:
- *   - save space with header (upper left: title, connection state, use simulator, ...)
- *   - re-arrange lower part:
- *     - color picker is nice
- *     - decrease size of calibration wheel?
- *     - increase size of steering wheel?
- *     
- * - add new controls:
- *   - speed
- *   
- * - add new displays:
- *   - simulator: 
- *     - display commands sent
- *   - accelerator/gyrometer: display in graphics, not just numbers
- *   - programming windows?
- * bugs:
- * 
- * 
+
 
 */

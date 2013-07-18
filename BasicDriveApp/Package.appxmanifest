@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:wb="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="1c299fe1-c7cd-402c-8799-f93d6f534c55" Publisher="CN=WindowsSdk_2" Version="1.0.1.1" />
+  <Identity Name="SpheroDriveX" Publisher="CN=WindowsSdk_2" Version="1.2.0.1" />
   <Properties>
     <DisplayName>SpheroDriveX</DisplayName>
     <PublisherDisplayName>TB</PublisherDisplayName>
@@ -26,7 +26,6 @@
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClient" />
     <wb:DeviceCapability Name="bluetooth.rfcomm">
       <wb:Device Id="any">
         <wb:Function Type="serviceId:00001101-0000-1000-8000-00805F9B34FB" />
