@@ -32,20 +32,24 @@ namespace BasicDriveApp
         private long m_lastCommandSentTimeMs;
 
         // TB
-        //! @brief	simulator to control
+        // simulator to control
         private RobotKit.SpheroSim m_simul;
-
         // speed adjustment factor
         private float m_speed_factor;
+        // rectangle with coordinates
+        private FrameworkElement m_myRect;
 
         /*!
          * @brief	creates a joystick with the given @a puck element for a @a sphero
          * @param	puck the puck to control with the joystick
          * @param	sphero the sphero to control
          */
-        public Joystick(FrameworkElement puck, RobotKit.Sphero sphero, RobotKit.SpheroSim simul) {
+        public Joystick(FrameworkElement puck, RobotKit.Sphero sphero, RobotKit.SpheroSim simul,
+            FrameworkElement myRect)
+        {
             m_sphero = sphero;
             m_simul = simul;
+            m_myRect = myRect;
 
             m_puckControl = puck;
             m_puckControl.PointerPressed += PointerPressed;
@@ -146,12 +150,13 @@ namespace BasicDriveApp
          * @brief	sends a roll command to the sphero given the current translation
          */
         private void SendRollCommand() {
+
             FrameworkElement parent = m_puckControl.Parent as FrameworkElement;
-            if (parent == null || m_sphero == null) {
+            if (parent == null ) {
                 return;
             }
 
-            Size size = new Size(parent.ActualWidth, parent.ActualHeight);
+            Size size = new Size(m_myRect.ActualWidth, m_myRect.ActualHeight);
 
             float x = (float)m_translateTransform.X;
             float y = (float)m_translateTransform.Y;
@@ -161,6 +166,10 @@ namespace BasicDriveApp
 
             float speed = x * x + y * y;
             speed = (speed == 0) ? 0 : (float)Math.Sqrt(speed);
+
+            // TB: adjust speed to factor determined by slider
+            speed = speed * m_speed_factor;
+            
             if (speed > 1f) {
                 speed = 1f;
             }
@@ -170,18 +179,15 @@ namespace BasicDriveApp
             double degrees = rad * 180.0 / Math.PI;
             int degreesCapped = (((int)degrees) + 360) % 360;
 
-            // adjust speed
-            speed = speed * m_speed_factor;
-
-            // no limit for simul roll command
-            if (m_simul != null)
-            {
-                m_simul.Roll(degreesCapped, speed);
-            }
-            // Send roll commands and limit to 10 Hz
+                // Send roll commands and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
-                m_sphero.Roll(degreesCapped, speed);
+
+                if (m_sphero != null)
+                    m_sphero.Roll(degreesCapped, speed);
+                if (m_simul != null)
+                    m_simul.Roll(degreesCapped, speed);
+    
                 m_lastCommandSentTimeMs = milliseconds;
             }
 

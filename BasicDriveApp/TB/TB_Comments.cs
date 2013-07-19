@@ -12,9 +12,22 @@
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
+ * 
+ * Connection Issues
+ * =================
+ * Tests with original sample code
+ * -------------------------------
+ * - Needs a couple of tries
+ * - need to start toggle manually?
+ * 
+ * Tests with version TB
+ * ---------------------
+ * 
  * todo/Change Log
  * 
 
+ * 
+ * 
  * todo:
  * - increase size of steering wheel?
  * - programming windows?
@@ -27,7 +40,14 @@
  * 
  * questions:
  * - what is role of "connection toggle"
- * - paramater reference?
+ * - parameter reference?
+ * 
+ * Lupo 1.2.2.1
+ * ============
+ * - fixed speed output not working in logging without sphero
+ * - added logging for all commands in Simul class
+ * - rearranged layout
+ * - added max values in display of Acc and Gyro values
  * 
  * Lupo 1.2.1.1
  * ============     

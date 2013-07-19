@@ -48,16 +48,20 @@ namespace RobotKit
 
         // methods provided by real kit
         public void Roll(int heading, float speed) {
-            m_log.LogMessage(90,"Roll heading="+heading.ToString()+",speed="+speed.ToString());
+            m_log.LogMessage(90,"SIMUL.Roll "+heading.ToString()+"/"+speed.ToString());
         }
 
-        public void SetBackLED(float intensity) { }
+        public void SetBackLED(float intensity) {
+            m_log.LogMessage(90, string.Format("SIMUL.SetBackLED {0}", intensity));
+        }
         
-        public void SetHeading(int heading) { }
+        public void SetHeading(int heading) {
+            m_log.LogMessage(90, string.Format("SIMUL.SetHeading {0}", heading));
+        }
         
         public void SetRGBLED(int red, int green, int blue) {
 
-            m_log.LogMessage(90,string.Format("SetRGBLED {0}/{1}/{2}",red,green,blue));
+            m_log.LogMessage(90,string.Format("SIMUL.SetRGBLED {0}/{1}/{2}",red,green,blue));
 
             Color c = Color.FromArgb(255, (byte) red, (byte)green, (byte)blue);
             Brush brush = new SolidColorBrush(c);

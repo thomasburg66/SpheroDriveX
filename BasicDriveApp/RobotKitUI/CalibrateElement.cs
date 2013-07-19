@@ -45,6 +45,9 @@ namespace BasicDriveApp
         //! @brief  the last time a command was sent in milliseconds
         private long m_lastCommandSentTimeMs;
 
+        // TB Stuff
+        private RobotKit.SpheroSim m_simul;
+
         /*!
          * Initializes this calibration element
          * @param   rotationElement the element that rotates (can have children that travel with it)
@@ -62,8 +65,10 @@ namespace BasicDriveApp
             FrameworkElement ringInner,
             FrameworkElement fingerPoint,
             FrameworkElement myRect,
-            RobotKit.Robot sphero) {
+            RobotKit.Robot sphero,
+            RobotKit.SpheroSim simul) {
             m_sphero = (RobotKit.Sphero)sphero;
+            m_simul = simul;
             m_calibrateRotationRoot = rotationElement;
             m_calibrateElement = element;
 
@@ -85,9 +90,10 @@ namespace BasicDriveApp
             m_lastCommandSentTimeMs = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
 
-        public void update(RobotKit.Robot sphero)
+        public void update(RobotKit.Robot sphero, RobotKit.SpheroSim simul)
         {
             m_sphero = (RobotKit.Sphero)sphero;
+            m_simul = simul;
         }
 
         //! @brief  sets up the rotation transform
@@ -129,6 +135,10 @@ namespace BasicDriveApp
                 {
                     m_sphero.Roll(angleDegrees, 0);
                 }
+                if (m_simul != null)
+                {
+                    m_simul.Roll(angleDegrees, 0);
+                }
                 m_lastCommandSentTimeMs = milliseconds;
             }
         }
@@ -140,6 +150,11 @@ namespace BasicDriveApp
                 if (m_sphero != null) {
                     m_sphero.SetHeading(0);
                     m_sphero.SetBackLED(1.0f);
+                }
+                if (m_simul != null)
+                {
+                    m_simul.SetHeading(0);
+                    m_simul.SetBackLED(1.0f);
                 }
 
                 m_calibrateElement.CapturePointer(args.Pointer);
@@ -171,6 +186,12 @@ namespace BasicDriveApp
             if (m_sphero != null) {
                 m_sphero.SetHeading(0);
                 m_sphero.SetBackLED(0.0f);
+            }
+
+            if (m_simul != null)
+            {
+                m_simul.SetHeading(0);
+                m_simul.SetBackLED(0.0f);
             }
 
             args.Handled = true;

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
 
 namespace TBTools
 {
@@ -56,8 +57,13 @@ namespace TBTools
         {
             if (level > m_level) return;
 
-            if (m_log_box!=null)
+            if (m_log_box != null)
+            {
                 m_log_box.Text = m_log_box.Text + "\n" + text;
+                m_log_box.Focus(FocusState.Programmatic);
+                int len = m_log_box.Text.Length;
+                m_log_box.SelectionStart = len + 1;
+            }
             Debug.WriteLine(text);
         }
 

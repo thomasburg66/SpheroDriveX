@@ -161,15 +161,15 @@ namespace BasicDriveApp
             // dim color according to intensity setting
             Color dimmed = TBTools.TBTools.DimmedColor(RgbColor, m_intensity);
 
-            // set simul color, no timing constraints
-            if (m_simul != null)
-                m_simul.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
-
             // Send RGB command and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
+
                 if (m_sphero != null)
                     m_sphero.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
+                if (m_simul != null)
+                    m_simul.SetRGBLED(dimmed.R, dimmed.G, dimmed.B);
+
                 m_lastCommandSentTimeMs = milliseconds;
             }
         }

@@ -13,7 +13,11 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" FlyoutBase.AttachedFlyout="{StaticResource FlyoutBase1}">
 
+        <Rectangle HorizontalAlignment="Left" Height="440" Stroke="#FF001EFF" VerticalAlignment="Top" Width="459" StrokeThickness="5" Margin="395,0,0,0"/>
+
         <Rectangle x:Name="rectCalibration"  HorizontalAlignment="Center" Height="256" Stroke="#FF001EFF" VerticalAlignment="Bottom" Width="256" StrokeThickness="2" />
+
+        <Rectangle x:Name="rectJoyStick"  HorizontalAlignment="Right" Height="512" Stroke="#FF001EFF" VerticalAlignment="Bottom" Width="512" StrokeThickness="2" />
 
         <Grid x:Name="gridCalibration" HorizontalAlignment="Center" Height="256" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="256">
             <Image x:Name="CalibrateTarget" HorizontalAlignment="Center" Height="100" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="100" Source="Assets/CalibrateWheel/btn_calibrate_up.tif"/>
@@ -25,14 +29,12 @@
             </Grid>
         </Grid>
 
-        <Slider x:Name="slAccX" HorizontalAlignment="Left" Height="40" Margin="680,302,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-        <Slider x:Name="slAccY" HorizontalAlignment="Left" Height="40" Margin="680,325,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-        <Slider x:Name="slAccZ" HorizontalAlignment="Left" Height="40" Margin="680,348,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-        <Slider x:Name="slGyroX" HorizontalAlignment="Left" Height="40" Margin="782,302,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-        <Slider x:Name="slGyroY" HorizontalAlignment="Left" Height="40" Margin="782,325,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-        <Slider x:Name="slGyroZ" HorizontalAlignment="Left" Height="40" Margin="782,348,0,0" VerticalAlignment="Top" Width="85" Minimum="-5" Maximum="5"/>
-
-        <Rectangle HorizontalAlignment="Left" Height="440" Stroke="#FF001EFF" VerticalAlignment="Top" Width="480" StrokeThickness="5" Margin="395,0,0,0"/>
+        <Slider x:Name="slAccX" HorizontalAlignment="Left" Height="40" Margin="560,302,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" RequestedTheme="Dark" Foreground="Gray" Background="Gray"/>
+        <Slider x:Name="slAccY" HorizontalAlignment="Left" Height="40" Margin="560,325,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" Background="Gray" Foreground="Gray"/>
+        <Slider x:Name="slAccZ" HorizontalAlignment="Left" Height="40" Margin="560,348,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" Foreground="Gray" Background="Gray"/>
+        <Slider x:Name="slGyroX" HorizontalAlignment="Left" Height="40" Margin="715,302,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" Background="Gray" Foreground="Gray"/>
+        <Slider x:Name="slGyroY" HorizontalAlignment="Left" Height="40" Margin="715,325,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" Foreground="Gray" Background="Gray"/>
+        <Slider x:Name="slGyroZ" HorizontalAlignment="Left" Height="40" Margin="715,348,0,0" VerticalAlignment="Top" Width="125" Minimum="-5" Maximum="5" Foreground="Gray" Background="Gray"/>
 
         <Rectangle HorizontalAlignment="Left" Height="325" Stroke="#FF001EFF" VerticalAlignment="Top" Width="400" StrokeThickness="5" Margin="0,115,0,0"/>
 
@@ -41,10 +43,10 @@
         <TextBlock x:Name="txtAppName" HorizontalAlignment="Left" Margin="10,0,0,726" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="AppName (temp)"/>
         <TextBlock x:Name="SpheroName" HorizontalAlignment="Left" Margin="10,88,0,0" TextWrapping="Wrap" Text="Live Sphero Connected" VerticalAlignment="Top" FontSize="16" Width="307" FontFamily="Segoe UI"/>
 
-        <TextBlock x:Name="AccelerometerValues" HorizontalAlignment="Right" Margin="82,30,30,0" TextWrapping="Wrap" Text="Accelerometer" VerticalAlignment="Top" FontSize="24"/>
-        <TextBlock x:Name="AccelerometerZ_copy" HorizontalAlignment="Right" Margin="0,365,699,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14" Height="18"/>
+        <TextBlock x:Name="AccelerometerValues" HorizontalAlignment="Right" Margin="82,30,30,0" TextWrapping="Wrap" Text="Acc" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock x:Name="AccelerometerZ_copy" HorizontalAlignment="Right" Margin="0,360,814,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14" Height="18"/>
 
-        <TextBlock x:Name="GyroscopeValues" HorizontalAlignment="Right" Margin="82,120,30,0" TextWrapping="Wrap" Text="Gyroscope" VerticalAlignment="Top" FontSize="24"/>
+        <TextBlock x:Name="GyroscopeValues" HorizontalAlignment="Right" Margin="82,120,30,0" TextWrapping="Wrap" Text="Gyr" VerticalAlignment="Top" FontSize="24"/>
         <TextBlock x:Name="GyroscopeX" HorizontalAlignment="Right" Margin="82,150,30,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="GyroscopeY" HorizontalAlignment="Right" Margin="82,170,30,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="GyroscopeZ" HorizontalAlignment="Right" Margin="82,190,30,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14"/>
@@ -79,23 +81,20 @@
         <Slider x:Name="slStep" HorizontalAlignment="Left" Height="30" Margin="80,210,0,0" VerticalAlignment="Top" Width="300" ValueChanged="slStep_ValueChanged" Maximum="50" Value="15" Minimum="1"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,260,0,0" TextWrapping="Wrap" Text="Delay" VerticalAlignment="Top" Width="83" FontSize="18"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="10,224,0,0" TextWrapping="Wrap" Text="Step" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="250" Margin="400,40,0,0" TextWrapping="Wrap" Text="Status Output:&#xA;" VerticalAlignment="Top" Width="470" IsReadOnly="True" FontSize="16" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="txtOutput" HorizontalAlignment="Left" Height="248" Margin="400,42,0,0" TextWrapping="Wrap" Text="Status Output:&#xA;&#xA;" VerticalAlignment="Top" Width="449" IsReadOnly="True" FontSize="12" AcceptsReturn="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Canvas.ZIndex="30"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,0,0,600" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="Color Animation"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="435,410,0,0" TextWrapping="Wrap" Text="Color" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBlock HorizontalAlignment="Left" Margin="530,0,0,724" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="Simulator/Debugger"/>
-        <TextBlock HorizontalAlignment="Left" Height="21" Margin="545,410,0,0" TextWrapping="Wrap" Text="DriveCmd" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBlock HorizontalAlignment="Left" Height="21" Margin="682,410,0,0" TextWrapping="Wrap" Text="Acc" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBlock HorizontalAlignment="Left" Height="21" Margin="792,410,0,0" TextWrapping="Wrap" Text="Gyro" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
-        <TextBlock x:Name="AccelerometerX_Copy" HorizontalAlignment="Right" Margin="0,320,700,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14" Height="18"/>
-        <TextBlock x:Name="AccelerometerY_Copy" HorizontalAlignment="Right" Margin="0,343,700,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14" Height="18"/>
-        <TextBlock x:Name="AccelerometerX_Copy1" HorizontalAlignment="Right" Margin="0,317,589,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14" Height="18"/>
-        <TextBlock x:Name="AccelerometerZ_Copy1" HorizontalAlignment="Right" Margin="0,367,589,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14" Height="18"/>
-        <TextBlock x:Name="AccelerometerY_Copy1" HorizontalAlignment="Right" Margin="0,342,590,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14" Height="18"/>
+        <TextBlock HorizontalAlignment="Left" Margin="415,0,0,720" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Width="306" Height="34" Text="Simulator/Debugger"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="570,410,0,0" TextWrapping="Wrap" Text="Acc" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="680,410,0,0" TextWrapping="Wrap" Text="Gyro" VerticalAlignment="Top" Width="83" FontSize="18" RenderTransformOrigin="0.795,-1.476"/>
+        <TextBlock x:Name="AccelerometerX_Copy" HorizontalAlignment="Right" Margin="0,315,815,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14" Height="18"/>
+        <TextBlock x:Name="AccelerometerY_Copy" HorizontalAlignment="Right" Margin="0,338,813,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14" Height="18"/>
         <TextBlock x:Name="AccelerometerX" HorizontalAlignment="Right" Margin="0,62,30,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerY" HorizontalAlignment="Right" Margin="0,82,31,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerZ" HorizontalAlignment="Right" Margin="0,102,30,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14"/>
-        <Slider x:Name="slDriveSpeed" HorizontalAlignment="Left" Height="256" Margin="816,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slDriveSpeed_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="200" Orientation="Vertical" Value="100" LargeChange="50"/>
+        <Slider x:Name="slDriveSpeed" HorizontalAlignment="Left" Height="256" Margin="816,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slDriveSpeed_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="100" Orientation="Vertical" Value="50" LargeChange="50" Minimum="1"/>
         <Slider x:Name="slVerbose" HorizontalAlignment="Left" Height="30" Margin="206,38,0,0" VerticalAlignment="Top" Width="148" ValueChanged="slVerbose_ValueChanged" Maximum="10" Value="5"/>
+        <Button x:Name="bnClearLog" Content="Clear Log" HorizontalAlignment="Left" Height="38" Margin="663,5,0,0" VerticalAlignment="Top" Width="180" Click="bnClearLog_Click"/>
 
     </Grid>
 </Page>

@@ -50,15 +50,18 @@ namespace BasicDriveApp
         //! @brief  the color wheel to control m_robot color
         private ColorWheel m_colorwheel;
 
+        //! @brief  the calibration wheel to calibrate m_robot
+        private CalibrateElement m_calibrateElement;
+
         // TB
         private ColorButtons m_colorbuttons;
         SpheroSim m_simul;
 
-        //! @brief  the calibration wheel to calibrate m_robot
-        private CalibrateElement m_calibrateElement;
-
         // log object
         private TBTools.TBLog m_log;
+
+        // max values for Acc, Gyro,
+        private float m_AccXMax, m_AccYMax, m_AccZMax, m_GyroXMax, m_GyroYMax, m_GyroZMax;
 
         // start main code
         public MainPage() {
@@ -79,7 +82,7 @@ namespace BasicDriveApp
             base.OnNavigatedTo(e);
 
             // added by TB
-            String version = "Lupo 1.2.1.1";
+            String version = "Lupo 1.2.2.1";
             txtAppName.Text = "SpheroDriveX " + version;
 
             // log class
@@ -175,7 +178,7 @@ namespace BasicDriveApp
                 m_colorwheel.UpdateSphero(m_robot, m_simul);
 
             if (m_joystick == null)
-                m_joystick = new Joystick(Puck, m_robot, m_simul);
+                m_joystick = new Joystick(Puck, m_robot, m_simul, rectJoyStick);
             else
                 m_joystick.UpdateSphero(m_robot,m_simul);
 
@@ -188,9 +191,10 @@ namespace BasicDriveApp
                     CalibrateRingInner,
                     CalibrationFingerPoint,
                     rectCalibration,
-                    m_robot);
+                    m_robot,
+                    m_simul);
             else
-                m_calibrateElement.update(m_robot);
+                m_calibrateElement.update(m_robot,m_simul);
 
             m_colorbuttons = new ColorButtons(m_robot,m_simul, bnStartColor1,bnStopColorAnim);
 
@@ -200,6 +204,8 @@ namespace BasicDriveApp
             m_colorwheel.SetIntensity(Int32.Parse(intensity_string));
             m_colorbuttons.SetIntensity(Int32.Parse(intensity_string));
             m_colorbuttons.SetDelay(Int32.Parse(step_string));
+
+            SetJoystickSpeedFactor((float) slDriveSpeed.Value);
 
         }
 
@@ -266,10 +272,20 @@ namespace BasicDriveApp
         }
 
         private void OnAccelerometerUpdated(object sender, AccelerometerReading reading) {
-            AccelerometerX.Text = "" + reading.X;
-            AccelerometerY.Text = "" + reading.Y;
-            AccelerometerZ.Text = "" + reading.Z;
 
+            // keep track of maximum absolute values
+            float xm, ym, zm;
+            xm = Math.Abs(reading.X); ym = Math.Abs(reading.Y); zm = Math.Abs(reading.Z);
+            if (xm > m_AccXMax) m_AccXMax = xm;
+            if (ym > m_AccYMax) m_AccYMax = ym;
+            if (zm > m_AccZMax) m_AccZMax = zm;
+
+            // update text field with both current and max value
+            AccelerometerX.Text = string.Format("{0}[{1}]", reading.X, m_AccXMax);
+            AccelerometerY.Text = string.Format("{0}[{1}]", reading.Y, m_AccYMax);
+            AccelerometerZ.Text = string.Format("{0}[{1}]", reading.Z, m_AccZMax);
+
+            // update slider
             slAccX.Value = TBTools.TBTools.AccToNum(reading.X);
             slAccY.Value = TBTools.TBTools.AccToNum(reading.Y);
             slAccZ.Value = TBTools.TBTools.AccToNum(reading.Z);
@@ -278,10 +294,19 @@ namespace BasicDriveApp
         }
 
         private void OnGyrometerUpdated(object sender, GyrometerReading reading) {
-            GyroscopeX.Text = "" + reading.X;
-            GyroscopeY.Text = "" + reading.Y;
-            GyroscopeZ.Text = "" + reading.Z;
+            // keep track of maximum absolute values
+            float xm, ym, zm;
+            xm = Math.Abs(reading.X); ym = Math.Abs(reading.Y); zm = Math.Abs(reading.Z);
+            if (xm > m_GyroXMax) m_GyroXMax = xm;
+            if (ym > m_GyroYMax) m_GyroYMax = ym;
+            if (zm > m_GyroZMax) m_GyroZMax = zm;
 
+            // update text field with both current and max value
+            GyroscopeX.Text = string.Format("{0}[{1}]", reading.X, m_GyroXMax);
+            GyroscopeY.Text = string.Format("{0}[{1}]", reading.X, m_GyroYMax);
+            GyroscopeZ.Text = string.Format("{0}[{1}]", reading.X, m_GyroZMax);
+
+            // update slider
             slGyroX.Value = TBTools.TBTools.GyroToNum(reading.X);
             slGyroY.Value = TBTools.TBTools.GyroToNum(reading.Y);
             slGyroZ.Value = TBTools.TBTools.GyroToNum(reading.Z);
@@ -367,16 +392,29 @@ namespace BasicDriveApp
                 m_simul.SetLogLevel(level);
         }
 
+        private void SetJoystickSpeedFactor(float speed_factor)
+        {
+            if (slDriveSpeed == null) return;
+            float max_slider_value = (float) slDriveSpeed.Maximum;
+            float final_speed_factor = speed_factor / max_slider_value;
+            if (m_log != null)
+                m_log.LogMessage(90, string.Format("new drive speed is {0}", final_speed_factor));
+            if (m_joystick != null)
+                m_joystick.SetSpeedFactor(final_speed_factor);
+
+        }
+
         private void slDriveSpeed_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             // scale to 0 ... 1
-            const float unadjusted_speed=50;
-            float speed_factor = (float)e.NewValue / unadjusted_speed;
-            if (m_log!=null)
-                m_log.LogMessage(90, string.Format("new drive speed is {0}", speed_factor));
-            if (m_joystick!=null)
-                m_joystick.SetSpeedFactor((float) speed_factor);
+            SetJoystickSpeedFactor((float)e.NewValue);
         }
+
+        private void bnClearLog_Click(object sender, RoutedEventArgs e)
+        {
+            txtOutput.Text = "";
+        }
+
 
     }
 
