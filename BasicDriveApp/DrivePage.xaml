@@ -89,6 +89,8 @@
         <TextBlock x:Name="AccelerometerX" HorizontalAlignment="Right" Margin="0,62,30,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerY" HorizontalAlignment="Right" Margin="0,82,31,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerZ" HorizontalAlignment="Right" Margin="0,102,30,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14"/>
+        <Slider x:Name="slDriveSpeed" HorizontalAlignment="Left" Height="256" Margin="816,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slDriveSpeed_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="255" Orientation="Vertical" Value="125"/>
+        <Slider x:Name="slVerbose" HorizontalAlignment="Left" Height="30" Margin="206,38,0,0" VerticalAlignment="Top" Width="148" ValueChanged="slVerbose_ValueChanged" Maximum="10" Value="5"/>
 
     </Grid>
 </Page>

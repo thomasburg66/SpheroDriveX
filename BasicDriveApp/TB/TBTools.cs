@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.UI;
-
+using Windows.UI.Xaml.Controls;
 
 namespace TBTools
 {
@@ -32,5 +33,35 @@ namespace TBTools
             return (int)result;
         }
 
+
     }
+    
+    public class TBLog {
+
+        private int m_level;
+        private TextBox m_log_box;
+
+        public TBLog(TextBox log_box)
+        {
+            m_level = 50;
+            m_log_box = log_box;
+        }
+
+        public void SetLogLevel(int level)
+        {
+            m_level = level;
+        }
+
+        public void LogMessage(int level, string text)
+        {
+            if (level > m_level) return;
+
+            if (m_log_box!=null)
+                m_log_box.Text = m_log_box.Text + "\n" + text;
+            Debug.WriteLine(text);
+        }
+
+    } // TBLog
+
+
 }

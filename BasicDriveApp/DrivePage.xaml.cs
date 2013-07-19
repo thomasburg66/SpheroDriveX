@@ -57,13 +57,19 @@ namespace BasicDriveApp
         //! @brief  the calibration wheel to calibrate m_robot
         private CalibrateElement m_calibrateElement;
 
+        // drive speed
+        private int m_drive_speed;
+
+        // log object
+        private TBTools.TBLog m_log;
+
+        // start main code
         public MainPage() {
             this.InitializeComponent();
         }
 
         private void WriteDebugOutput(String text) {
-            txtOutput.Text=txtOutput.Text + "\n" + text;
-            Debug.WriteLine(text);
+            m_log.LogMessage(50, text);
         }
 
         /// <summary>
@@ -72,19 +78,27 @@ namespace BasicDriveApp
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e) {
+            
             base.OnNavigatedTo(e);
-            StartUpRobot();
 
             // added by TB
-            String version = "Lupo 1.2.0.1";
+            String version = "Lupo 1.2.1.0";
             txtAppName.Text = "SpheroDriveX " + version;
+
+            // log class
+            m_log = new TBTools.TBLog(txtOutput);
+            
+            // normal startup code
+            StartUpRobot();
+
+
 
         }
 
         private void StartUpRobot()
         {
             // use simulator?
-            m_simul = new SpheroSim(ellColor);
+            m_simul = new SpheroSim(ellColor,m_log);
 
             if (chkSimul.IsChecked == true)
             {
@@ -164,9 +178,9 @@ namespace BasicDriveApp
                 m_colorwheel.UpdateSphero(m_robot, m_simul);
 
             if (m_joystick == null)
-                m_joystick = new Joystick(Puck, m_robot);
+                m_joystick = new Joystick(Puck, m_robot, m_simul);
             else
-                m_joystick.update(m_robot);
+                m_joystick.UpdateSphero(m_robot,m_simul);
 
             if (m_calibrateElement == null)
                 m_calibrateElement = new CalibrateElement(
@@ -345,6 +359,22 @@ namespace BasicDriveApp
                 ShutdownRobotConnection();
                 SetupControls();
             }
+        }
+
+        private void slVerbose_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            int level = (int) e.NewValue * 10;
+            if (m_log!=null)
+                m_log.SetLogLevel(level);
+            if (m_simul!=null)
+                m_simul.SetLogLevel(level);
+        }
+
+        private void slDriveSpeed_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            m_drive_speed = (int)e.NewValue;
+            if (m_log!=null)
+                m_log.LogMessage(90,string.Format("new drive speed is {0}", m_drive_speed));
         }
 
     }

@@ -17,14 +17,21 @@
 
  * todo:
  * - increase size of steering wheel?
- * - ### add speed control ###
- * - display commands sent in simulator canva
  * - programming windows?
  * 
  * bugs:
  *
  * minor improvements:
  * - accelerator display 'wiggles' too much; z-axis needs fix?
+ * 
+ * Lupo 1.2.1.0
+ * ============     
+ * - added log class a la TB including slider for level
+ * - started log messages for color changes
+ * - added slider for speed
+ * 
+ * todo:
+ * - log message window: go to end automatically
  * 
  * Lupo 1.2.0.1
  * ============

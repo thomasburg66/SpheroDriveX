@@ -31,13 +31,18 @@ namespace BasicDriveApp
         //! @brief  the last time a command was sent in milliseconds
         private long m_lastCommandSentTimeMs;
 
+        // TB
+        //! @brief	simulator to control
+        private RobotKit.SpheroSim m_simul;
+
         /*!
          * @brief	creates a joystick with the given @a puck element for a @a sphero
          * @param	puck the puck to control with the joystick
          * @param	sphero the sphero to control
          */
-        public Joystick(FrameworkElement puck, RobotKit.Sphero sphero) {
+        public Joystick(FrameworkElement puck, RobotKit.Sphero sphero, RobotKit.SpheroSim simul) {
             m_sphero = sphero;
+            m_simul = simul;
 
             m_puckControl = puck;
             m_puckControl.PointerPressed += PointerPressed;
@@ -50,9 +55,12 @@ namespace BasicDriveApp
             m_puckControl.RenderTransform = m_translateTransform;
         }
 
-        public void update(RobotKit.Sphero sphero)
+
+        public void UpdateSphero(RobotKit.Sphero sphero,
+            RobotKit.SpheroSim simul)
         {
             m_sphero = sphero;
+            m_simul = simul;
         }
 
         //! @brief  handle the user starting to drive
@@ -120,6 +128,10 @@ namespace BasicDriveApp
             if (m_sphero != null) {
                 m_sphero.Roll(m_lastHeading, 0);
             }
+            if (m_simul != null)
+            {
+                m_simul.Roll(m_lastHeading, 0);
+            }
         }
 
         /*!
@@ -150,6 +162,11 @@ namespace BasicDriveApp
             double degrees = rad * 180.0 / Math.PI;
             int degreesCapped = (((int)degrees) + 360) % 360;
 
+            // no limit for simul roll command
+            if (m_simul != null)
+            {
+                m_simul.Roll(degreesCapped, speed);
+            }
             // Send roll commands and limit to 10 Hz
             long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             if ((milliseconds - m_lastCommandSentTimeMs) > 100) {
