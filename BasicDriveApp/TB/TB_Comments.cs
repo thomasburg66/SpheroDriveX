@@ -29,25 +29,26 @@
  * 
  * 
  * todo:
- * - increase size of steering wheel?
  * - programming windows?
  * - log message window: go to end automatically
  * 
  * bugs:
  *
  * minor improvements:
- * - accelerator display 'wiggles' too much; z-axis needs fix?
+ * - accelerator display 'wiggles' too much
  * 
  * questions:
  * - what is role of "connection toggle"
  * - parameter reference?
  * 
- * Lupo 1.2.2.1
+ * Lupo 1.2.2.2
  * ============
  * - fixed speed output not working in logging without sphero
  * - added logging for all commands in Simul class
  * - rearranged layout
  * - added max values in display of Acc and Gyro values
+ * - tried to make display of Gyro a bit less wiggly
+ * - fixed z-axis for gravity
  * 
  * Lupo 1.2.1.1
  * ============     

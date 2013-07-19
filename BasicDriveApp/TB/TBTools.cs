@@ -27,11 +27,12 @@ namespace TBTools
             return (int)result;
         }
 
-        static public int GyroToNum(float g)
+        static public float GyroToNum(float g)
         {
-            double result = Math.Round(Math.Log10(Math.Abs(g)));
-            if (g > 0) result = 0 - result;
-            return (int)result;
+            float log = (float) Math.Log10(Math.Abs(g) / 10 );
+            if (log  < 0) log = 0;
+            if (g > 0) log = 0 - log;
+            return log;
         }
 
 

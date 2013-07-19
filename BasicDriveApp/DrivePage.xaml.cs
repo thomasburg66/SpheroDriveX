@@ -82,7 +82,7 @@ namespace BasicDriveApp
             base.OnNavigatedTo(e);
 
             // added by TB
-            String version = "Lupo 1.2.2.1";
+            String version = "Lupo 1.2.2.2";
             txtAppName.Text = "SpheroDriveX " + version;
 
             // log class
@@ -273,9 +273,12 @@ namespace BasicDriveApp
 
         private void OnAccelerometerUpdated(object sender, AccelerometerReading reading) {
 
+            // z: adjust for gravity
+            float z = reading.Z-1;
+            
             // keep track of maximum absolute values
             float xm, ym, zm;
-            xm = Math.Abs(reading.X); ym = Math.Abs(reading.Y); zm = Math.Abs(reading.Z);
+            xm = Math.Abs(reading.X); ym = Math.Abs(reading.Y); zm = Math.Abs(z);
             if (xm > m_AccXMax) m_AccXMax = xm;
             if (ym > m_AccYMax) m_AccYMax = ym;
             if (zm > m_AccZMax) m_AccZMax = zm;
@@ -283,12 +286,12 @@ namespace BasicDriveApp
             // update text field with both current and max value
             AccelerometerX.Text = string.Format("{0}[{1}]", reading.X, m_AccXMax);
             AccelerometerY.Text = string.Format("{0}[{1}]", reading.Y, m_AccYMax);
-            AccelerometerZ.Text = string.Format("{0}[{1}]", reading.Z, m_AccZMax);
+            AccelerometerZ.Text = string.Format("{0}[{1}]", z, m_AccZMax);
 
             // update slider
             slAccX.Value = TBTools.TBTools.AccToNum(reading.X);
             slAccY.Value = TBTools.TBTools.AccToNum(reading.Y);
-            slAccZ.Value = TBTools.TBTools.AccToNum(reading.Z);
+            slAccZ.Value = TBTools.TBTools.AccToNum(z);
 
 
         }
@@ -303,8 +306,8 @@ namespace BasicDriveApp
 
             // update text field with both current and max value
             GyroscopeX.Text = string.Format("{0}[{1}]", reading.X, m_GyroXMax);
-            GyroscopeY.Text = string.Format("{0}[{1}]", reading.X, m_GyroYMax);
-            GyroscopeZ.Text = string.Format("{0}[{1}]", reading.X, m_GyroZMax);
+            GyroscopeY.Text = string.Format("{0}[{1}]", reading.Y, m_GyroYMax);
+            GyroscopeZ.Text = string.Format("{0}[{1}]", reading.Z, m_GyroZMax);
 
             // update slider
             slGyroX.Value = TBTools.TBTools.GyroToNum(reading.X);
