@@ -57,9 +57,6 @@ namespace BasicDriveApp
         //! @brief  the calibration wheel to calibrate m_robot
         private CalibrateElement m_calibrateElement;
 
-        // drive speed
-        private int m_drive_speed;
-
         // log object
         private TBTools.TBLog m_log;
 
@@ -82,7 +79,7 @@ namespace BasicDriveApp
             base.OnNavigatedTo(e);
 
             // added by TB
-            String version = "Lupo 1.2.1.0";
+            String version = "Lupo 1.2.1.1";
             txtAppName.Text = "SpheroDriveX " + version;
 
             // log class
@@ -372,9 +369,13 @@ namespace BasicDriveApp
 
         private void slDriveSpeed_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            m_drive_speed = (int)e.NewValue;
+            // scale to 0 ... 1
+            const float unadjusted_speed=50;
+            float speed_factor = (float)e.NewValue / unadjusted_speed;
             if (m_log!=null)
-                m_log.LogMessage(90,string.Format("new drive speed is {0}", m_drive_speed));
+                m_log.LogMessage(90, string.Format("new drive speed is {0}", speed_factor));
+            if (m_joystick!=null)
+                m_joystick.SetSpeedFactor((float) speed_factor);
         }
 
     }

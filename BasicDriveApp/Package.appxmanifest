@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:wb="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="SpheroDriveX" Publisher="CN=WindowsSdk_2" Version="1.2.0.1" />
+  <Identity Name="SpheroDriveX" Publisher="CN=WindowsSdk_2" Version="1.2.1.1" />
   <Properties>
     <DisplayName>SpheroDriveX</DisplayName>
     <PublisherDisplayName>TB</PublisherDisplayName>

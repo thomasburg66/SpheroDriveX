@@ -35,6 +35,9 @@ namespace BasicDriveApp
         //! @brief	simulator to control
         private RobotKit.SpheroSim m_simul;
 
+        // speed adjustment factor
+        private float m_speed_factor;
+
         /*!
          * @brief	creates a joystick with the given @a puck element for a @a sphero
          * @param	puck the puck to control with the joystick
@@ -61,6 +64,11 @@ namespace BasicDriveApp
         {
             m_sphero = sphero;
             m_simul = simul;
+        }
+
+        public void SetSpeedFactor(float factor)
+        {
+            m_speed_factor = factor;
         }
 
         //! @brief  handle the user starting to drive
@@ -161,6 +169,9 @@ namespace BasicDriveApp
             rad += Math.PI / 2.0;
             double degrees = rad * 180.0 / Math.PI;
             int degreesCapped = (((int)degrees) + 360) % 360;
+
+            // adjust speed
+            speed = speed * m_speed_factor;
 
             // no limit for simul roll command
             if (m_simul != null)

@@ -50,10 +50,15 @@
         <TextBlock x:Name="GyroscopeZ" HorizontalAlignment="Right" Margin="82,190,30,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14"/>
 
         <Grid HorizontalAlignment="Right" Height="512" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="512">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="399*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="88*"/>
+            </Grid.RowDefinitions>
             <Grid.Background>
                 <ImageBrush Stretch="Fill" ImageSource="Assets/DriveWheel/gfx_driveorb.tif"/>
             </Grid.Background>
-            <Image x:Name="Puck" HorizontalAlignment="Center" Height="200" Margin="0,0,0,0" VerticalAlignment="Center" Width="200" Source="Assets/DriveWheel/gfx_joystick.png"/>
+            <Image x:Name="Puck" HorizontalAlignment="Center" Height="200" Margin="156,156,156,43" VerticalAlignment="Center" Width="200" Source="Assets/DriveWheel/gfx_joystick.png"/>
         </Grid>
 
         <Grid HorizontalAlignment="Left" Height="256" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="256" RenderTransformOrigin="0.5,0.5">
@@ -89,7 +94,7 @@
         <TextBlock x:Name="AccelerometerX" HorizontalAlignment="Right" Margin="0,62,30,0" TextWrapping="Wrap" Text="x" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerY" HorizontalAlignment="Right" Margin="0,82,31,0" TextWrapping="Wrap" Text="y" VerticalAlignment="Top" FontSize="14"/>
         <TextBlock x:Name="AccelerometerZ" HorizontalAlignment="Right" Margin="0,102,30,0" TextWrapping="Wrap" Text="z" VerticalAlignment="Top" FontSize="14"/>
-        <Slider x:Name="slDriveSpeed" HorizontalAlignment="Left" Height="256" Margin="816,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slDriveSpeed_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="255" Orientation="Vertical" Value="125"/>
+        <Slider x:Name="slDriveSpeed" HorizontalAlignment="Left" Height="256" Margin="816,512,0,0" VerticalAlignment="Top" Width="51" ValueChanged="slDriveSpeed_ValueChanged" RenderTransformOrigin="0.521,0.523" Maximum="200" Orientation="Vertical" Value="100" LargeChange="50"/>
         <Slider x:Name="slVerbose" HorizontalAlignment="Left" Height="30" Margin="206,38,0,0" VerticalAlignment="Top" Width="148" ValueChanged="slVerbose_ValueChanged" Maximum="10" Value="5"/>
 
     </Grid>
